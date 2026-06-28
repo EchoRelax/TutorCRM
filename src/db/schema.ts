@@ -3,6 +3,7 @@ import {
   uuid,
   text,
   integer,
+  boolean,
   timestamp,
 } from "drizzle-orm/pg-core";
 
@@ -11,8 +12,19 @@ export const users = pgTable("users", {
   email: text("email").notNull().unique(),
   passwordHash: text("password_hash").notNull(),
   fullName: text("full_name").notNull(),
+  twoFactorSecret: text("two_factor_secret"),
+  twoFactorEnabled: boolean("two_factor_enabled").notNull().default(false),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
+export const sessions = pgTable("sessions", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  userId: uuid("user_id").notNull(),
+  userAgent: text("user_agent").notNull().default(""),
+  ip: text("ip").notNull().default(""),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  lastSeenAt: timestamp("last_seen_at", { withTimezone: true }).defaultNow().notNull(),
 });
 
 export const profiles = pgTable("profiles", {
@@ -103,6 +115,7 @@ export const events = pgTable("events", {
 });
 
 export type DbUser = typeof users.$inferSelect;
+export type DbSession = typeof sessions.$inferSelect;
 export type DbProfile = typeof profiles.$inferSelect;
 export type DbStudent = typeof students.$inferSelect;
 export type DbLesson = typeof lessons.$inferSelect;

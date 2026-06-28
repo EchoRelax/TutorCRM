@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { MenuSelect } from "@/components/ui/menu-select";
 import { Field } from "@/components/ui/field";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { PrivacySection } from "@/components/PrivacySection";
 
 export default function SettingsPage() {
   const { profile, saveProfile } = useData();
@@ -127,6 +128,8 @@ export default function SettingsPage() {
           Выйти из аккаунта
         </Button>
       </div>
+
+      <PrivacySection />
     </div>
   );
 }

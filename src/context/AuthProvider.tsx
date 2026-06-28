@@ -6,14 +6,16 @@ import {
   loginAction,
   logoutAction,
   registerAction,
+  verifyTwoFactorAction,
 } from "@/lib/actions/auth";
-import type { AuthUser } from "@/lib/actions/auth";
+import type { AuthUser, LoginResult } from "@/lib/actions/auth";
 
 interface AuthContextValue {
   user: AuthUser | null;
   loading: boolean;
-  login: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<LoginResult>;
   register: (fullName: string, email: string, password: string) => Promise<void>;
+  verifyTwoFactor: (ticket: string, code: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -41,8 +43,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const login = React.useCallback(async (email: string, password: string) => {
-    const u = await loginAction(email, password);
-    setUser(u);
+    const res = await loginAction(email, password);
+    if (res.status === "ok") setUser(res.user);
+    return res;
   }, []);
 
   const register = React.useCallback(
@@ -53,14 +56,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     []
   );
 
+  const verifyTwoFactor = React.useCallback(async (ticket: string, code: string) => {
+    const u = await verifyTwoFactorAction(ticket, code);
+    setUser(u);
+  }, []);
+
   const logout = React.useCallback(() => {
     void logoutAction();
     setUser(null);
   }, []);
 
   const value = React.useMemo(
-    () => ({ user, loading, login, register, logout }),
-    [user, loading, login, register, logout]
+    () => ({ user, loading, login, register, verifyTwoFactor, logout }),
+    [user, loading, login, register, verifyTwoFactor, logout]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
