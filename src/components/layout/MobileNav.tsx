@@ -116,6 +116,7 @@ export function MobileBrand() {
     <Link href="/dashboard" className="flex items-center gap-2">
       <Logo className="h-7 w-7" />
       <span className="font-display font-bold tracking-tight">TutorCRM</span>
+      <span className="beta-badge">Beta</span>
     </Link>
   );
 }

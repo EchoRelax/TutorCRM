@@ -15,7 +15,7 @@ import {
   startOfWeek,
 } from "date-fns";
 import { ru } from "date-fns/locale";
-import { ChevronLeft, ChevronRight, CalendarPlus, Star } from "lucide-react";
+import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { useData } from "@/context/DataProvider";
 import { useQuickAdd } from "@/context/QuickAddProvider";
 import { EVENT_COLOR_CHIP, LESSON_STATUS_LABELS } from "@/lib/constants";
@@ -64,11 +64,22 @@ function groupByDay<T extends { date: string }>(items: T[]): Map<string, T[]> {
   return map;
 }
 
-export function LessonsCalendar({ lessons, events = [], showAddEvent }: Props) {
+export function LessonsCalendar({ lessons, events = [] }: Props) {
   const { students } = useData();
   const { openLesson, openEvent } = useQuickAdd();
-  const [view, setView] = React.useState<View>("month");
+  const [view, setViewState] = React.useState<View>("month");
   const [cursor, setCursor] = React.useState<Date>(new Date());
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const mq = window.matchMedia("(max-width: 640px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  const effectiveView: View = isMobile ? "day" : view;
 
   const studentName = (id: string) => students.find((s) => s.id === id)?.name ?? "Ученик";
   const studentCurrency = (id: string): Currency => students.find((s) => s.id === id)?.currency ?? "RUB";
@@ -78,21 +89,21 @@ export function LessonsCalendar({ lessons, events = [], showAddEvent }: Props) {
 
   const today = new Date();
   const title =
-    view === "month"
+    effectiveView === "month"
       ? format(cursor, "LLLL yyyy", { locale: ru })
-      : view === "week"
+      : effectiveView === "week"
         ? `${format(startOfWeek(cursor, { weekStartsOn: 1 }), "d MMM", { locale: ru })} – ${format(endOfWeek(cursor, { weekStartsOn: 1 }), "d MMM yyyy", { locale: ru })}`
         : format(cursor, "d MMMM yyyy, EEEE", { locale: ru });
 
   const step = (dir: number) => {
-    if (view === "month") setCursor((c) => addMonths(c, dir));
-    else if (view === "week") setCursor((c) => addDays(c, dir * 7));
+    if (effectiveView === "month") setCursor((c) => addMonths(c, dir));
+    else if (effectiveView === "week") setCursor((c) => addDays(c, dir * 7));
     else setCursor((c) => addDays(c, dir));
   };
 
   const goToDay = (d: Date) => {
     setCursor(startOfDay(d));
-    setView("day");
+    setViewState("day");
   };
 
   return (
@@ -100,20 +111,22 @@ export function LessonsCalendar({ lessons, events = [], showAddEvent }: Props) {
       <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h3 className="text-lg font-semibold capitalize">{title}</h3>
         <div className="flex items-center gap-2">
-          <div className="inline-flex rounded-lg border border-border bg-secondary/60 p-0.5">
-            {(["month", "week", "day"] as View[]).map((v) => (
-              <button
-                key={v}
-                onClick={() => setView(v)}
-                className={cn(
-                  "rounded-md px-2.5 py-1 text-xs font-medium transition-colors",
-                  view === v ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                {v === "month" ? "Месяц" : v === "week" ? "Неделя" : "День"}
-              </button>
-            ))}
-          </div>
+          {!isMobile && (
+            <div className="inline-flex rounded-lg border border-border bg-secondary/60 p-0.5">
+              {(["month", "week", "day"] as View[]).map((v) => (
+                <button
+                  key={v}
+                  onClick={() => setViewState(v)}
+                  className={cn(
+                    "rounded-md px-2.5 py-1 text-xs font-medium transition-colors",
+                    view === v ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  {v === "month" ? "Месяц" : v === "week" ? "Неделя" : "День"}
+                </button>
+              ))}
+            </div>
+          )}
           <Button variant="outline" size="sm" onClick={() => setCursor(new Date())}>
             Сегодня
           </Button>
@@ -125,16 +138,10 @@ export function LessonsCalendar({ lessons, events = [], showAddEvent }: Props) {
               <ChevronRight className="h-4 w-4" />
             </Button>
           </div>
-          {showAddEvent && (
-            <Button variant="secondary" size="sm" onClick={() => openEvent({ defaultDate: iso(cursor) })}>
-              <CalendarPlus className="h-4 w-4" />
-              <span className="hidden sm:inline">Событие</span>
-            </Button>
-          )}
         </div>
       </div>
 
-      {view === "month" && (
+      {effectiveView === "month" && (
         <MonthView
           cursor={cursor}
           lessonsByDay={lessonsByDay}
@@ -146,7 +153,7 @@ export function LessonsCalendar({ lessons, events = [], showAddEvent }: Props) {
           onEventClick={(e) => openEvent({ event: e })}
         />
       )}
-      {view === "week" && (
+      {effectiveView === "week" && (
         <WeekView
           cursor={cursor}
           lessonsByDay={lessonsByDay}
@@ -158,7 +165,7 @@ export function LessonsCalendar({ lessons, events = [], showAddEvent }: Props) {
           onEventClick={(e) => openEvent({ event: e })}
         />
       )}
-      {view === "day" && (
+      {effectiveView === "day" && (
         <DayView
           cursor={cursor}
           lessonsByDay={lessonsByDay}

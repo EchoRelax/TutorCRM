@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Check, Sparkles, Wrench, Infinity as InfinityIcon } from "lucide-react";
+import { Check, Lock } from "lucide-react";
 import { useSubscription } from "@/context/SubscriptionProvider";
 import { useToast } from "@/context/ToastProvider";
 import {
@@ -15,8 +15,10 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
+const BETA_NOTE = "Оформление будет доступно после завершения бета-тестирования.";
+
 export default function SubscriptionPage() {
-  const { plan, isPro, isLifetime, setPlan, grantPro, grantLifetime, revokePro } = useSubscription();
+  const { plan, revokePro } = useSubscription();
   const { toast } = useToast();
   const spotsLeft = Math.max(0, LIFETIME_TOTAL_SPOTS - LIFETIME_TAKEN_SPOTS);
 
@@ -24,13 +26,7 @@ export default function SubscriptionPage() {
     <div className="space-y-6">
       <PageHeader
         title="Подписка"
-        description={
-          isLifetime
-            ? "Ваш тариф: Lifetime"
-            : isPro
-              ? "Ваш тариф: Pro"
-              : `Ваш тариф: Free (до ${FREE_STUDENT_LIMIT} учеников)`
-        }
+        description={`Ваш тариф: Free (до ${FREE_STUDENT_LIMIT} учеников)`}
       />
 
       <div className="grid grid-cols-1 items-start gap-4 lg:grid-cols-3">
@@ -55,36 +51,21 @@ export default function SubscriptionPage() {
           }
         />
 
-        {/* Pro — выделен размером */}
+        {/* Pro — заблокирован в бета */}
         <PlanCard
           name="Pro"
-          badge="Популярное"
-          active={plan === "pro"}
+          badge="Скоро"
           highlight
           description="Для активной практики без ограничений"
           price={formatCurrency(490)}
           priceSuffix="/ мес"
           features={PRO_FEATURES.map((text) => ({ ok: true, text }))}
-          action={
-            plan === "pro" ? (
-              <Button variant="outline" className="w-full" disabled>
-                Pro активна
-              </Button>
-            ) : (
-              <Button onClick={() => { grantPro(); toast("Добро пожаловать в Pro!"); }} className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
-                <Sparkles className="h-4 w-4" />
-                Перейти на Pro
-              </Button>
-            )
-          }
+          locked
         />
 
-        {/* Lifetime */}
+        {/* Lifetime — заблокирован в бета */}
         <PlanCard
           name="Lifetime"
-          badge="Лимитированное"
-          badgeTone="amber"
-          active={plan === "lifetime"}
           description="Разовая оплата навсегда для первых участников"
           price={formatCurrency(4900)}
           priceSuffix="навсегда"
@@ -96,54 +77,25 @@ export default function SubscriptionPage() {
           ]}
           footer={
             <div className="mt-1">
-              <p className="text-xs font-medium text-warning">
+              <p className="text-xs font-medium text-muted-foreground">
                 Осталось {spotsLeft} из {LIFETIME_TOTAL_SPOTS} мест
               </p>
               <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-secondary">
                 <div
-                  className="h-full rounded-full bg-warning"
+                  className="h-full rounded-full bg-muted"
                   style={{ width: `${(LIFETIME_TAKEN_SPOTS / LIFETIME_TOTAL_SPOTS) * 100}%` }}
                 />
               </div>
             </div>
           }
-          action={
-            plan === "lifetime" ? (
-              <Button variant="outline" className="w-full" disabled>
-                Lifetime активна
-              </Button>
-            ) : (
-              <Button onClick={() => { grantLifetime(); toast("Lifetime активирована!"); }} className="w-full bg-warning text-warning-foreground hover:bg-warning/90">
-                <InfinityIcon className="h-4 w-4" />
-                Забрать Lifetime
-              </Button>
-            )
-          }
+          locked
         />
       </div>
 
       <Card className="border-dashed">
-        <CardContent className="flex flex-col items-start gap-3 p-5 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-2.5">
-            <Wrench className="h-5 w-5 text-muted-foreground" />
-            <div>
-              <p className="text-sm font-medium">Отладка</p>
-              <p className="text-xs text-muted-foreground">
-                Тестовые кнопки тарифа (временно, для проверки).
-              </p>
-            </div>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Button size="sm" variant="outline" onClick={() => { setPlan("pro"); toast("Pro включён (отладка)"); }}>
-              Выдать Pro
-            </Button>
-            <Button size="sm" variant="outline" onClick={() => { setPlan("lifetime"); toast("Lifetime включён (отладка)"); }}>
-              Выдать Lifetime
-            </Button>
-            <Button size="sm" variant="outline" onClick={() => { setPlan("free"); toast("Free включён (отладка)"); }}>
-              Сбросить на Free
-            </Button>
-          </div>
+        <CardContent className="flex items-start gap-2.5 p-5">
+          <Lock className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground" />
+          <p className="text-sm text-muted-foreground">{BETA_NOTE}</p>
         </CardContent>
       </Card>
     </div>
@@ -158,7 +110,6 @@ interface PlanFeature {
 function PlanCard({
   name,
   badge,
-  badgeTone,
   active,
   highlight,
   description,
@@ -167,38 +118,33 @@ function PlanCard({
   features,
   action,
   footer,
+  locked,
 }: {
   name: string;
   badge?: string;
-  badgeTone?: "amber";
   active?: boolean;
   highlight?: boolean;
   description: string;
   price: string;
   priceSuffix: string;
   features: PlanFeature[];
-  action: React.ReactNode;
+  action?: React.ReactNode;
   footer?: React.ReactNode;
+  locked?: boolean;
 }) {
   return (
     <Card
       className={cn(
         "relative flex h-full flex-col p-6",
         active && "ring-2",
-        highlight && "z-10"
+        highlight && "z-10",
+        locked && "opacity-95"
       )}
     >
       <div className="flex items-center justify-between gap-2">
         <h3 className="text-lg font-semibold">{name}</h3>
         {badge && (
-          <span
-            className={cn(
-              "inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-semibold shadow-sm",
-              badgeTone === "amber"
-                ? "bg-warning text-warning-foreground"
-                : "bg-primary text-primary-foreground"
-            )}
-          >
+          <span className="inline-flex items-center gap-1 rounded-full bg-muted px-2.5 py-0.5 text-[11px] font-semibold text-muted-foreground">
             {badge}
           </span>
         )}
@@ -206,7 +152,17 @@ function PlanCard({
 
       <p className="mt-1 text-sm text-muted-foreground">{description}</p>
 
-      <div className="mt-5">{action}</div>
+      {locked ? (
+        <div className="mt-5">
+          <Button disabled className="w-full">
+            <Lock className="h-4 w-4" />
+            Недоступно в бета
+          </Button>
+          <p className="mt-2 text-xs text-muted-foreground">{BETA_NOTE}</p>
+        </div>
+      ) : (
+        <div className="mt-5">{action}</div>
+      )}
 
       <p className="mt-5 text-3xl font-bold">
         {price} <span className="text-base font-normal text-muted-foreground">{priceSuffix}</span>

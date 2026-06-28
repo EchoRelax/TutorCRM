@@ -20,6 +20,7 @@ export function Sidebar() {
       <div className="sidebar-brand">
         <Logo className="h-7 w-7" />
         <span>TutorCRM</span>
+        <span className="beta-badge">Beta</span>
       </div>
 
       <nav className="sidebar-nav">

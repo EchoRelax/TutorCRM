@@ -1,11 +1,11 @@
 "use client";
 
 import * as React from "react";
-import { Save, RotateCcw, Loader2, LogOut, Database } from "lucide-react";
+import { Save, Loader2, LogOut } from "lucide-react";
 import { useData } from "@/context/DataProvider";
 import { useAuth } from "@/context/AuthProvider";
 import { useToast } from "@/context/ToastProvider";
-import { CURRENCY_OPTIONS, TIMEZONES } from "@/lib/constants";
+import { CURRENCY_OPTIONS } from "@/lib/constants";
 import type { Currency } from "@/lib/types";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/button";
@@ -13,27 +13,23 @@ import { Input } from "@/components/ui/input";
 import { MenuSelect } from "@/components/ui/menu-select";
 import { Field } from "@/components/ui/field";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { ConfirmDialog } from "@/components/ConfirmDialog";
 
 export default function SettingsPage() {
-  const { profile, saveProfile, resetDemo } = useData();
+  const { profile, saveProfile } = useData();
   const { logout } = useAuth();
   const { toast } = useToast();
 
   const [fullName, setFullName] = React.useState("");
   const [email, setEmail] = React.useState("");
-  const [timezone, setTimezone] = React.useState("Europe/Moscow");
   const [currency, setCurrency] = React.useState<Currency>("RUB");
   const [duration, setDuration] = React.useState(60);
   const [price, setPrice] = React.useState(1000);
   const [saving, setSaving] = React.useState(false);
-  const [confirmReset, setConfirmReset] = React.useState(false);
 
   React.useEffect(() => {
     if (profile) {
       setFullName(profile.full_name);
       setEmail(profile.email);
-      setTimezone(profile.timezone);
       setCurrency(profile.default_currency);
       setDuration(profile.default_lesson_duration);
       setPrice(profile.default_lesson_price);
@@ -48,7 +44,6 @@ export default function SettingsPage() {
         id: profile.id,
         email,
         full_name: fullName,
-        timezone,
         default_currency: currency,
         default_lesson_duration: duration,
         default_lesson_price: price,
@@ -59,11 +54,6 @@ export default function SettingsPage() {
     } finally {
       setSaving(false);
     }
-  };
-
-  const handleReset = async () => {
-    await resetDemo();
-    toast("Демо-данные восстановлены");
   };
 
   return (
@@ -82,13 +72,6 @@ export default function SettingsPage() {
             </Field>
             <Field label="Email" htmlFor="email">
               <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-            </Field>
-            <Field label="Часовой пояс">
-              <MenuSelect
-                value={timezone}
-                onChange={setTimezone}
-                options={TIMEZONES.map((tz) => ({ value: tz, label: tz }))}
-              />
             </Field>
           </CardContent>
         </Card>
@@ -144,34 +127,6 @@ export default function SettingsPage() {
           Выйти из аккаунта
         </Button>
       </div>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Database className="h-5 w-5 text-muted-foreground" />
-            Хранилище данных
-          </CardTitle>
-          <CardDescription>
-            Данные хранятся локально в браузере (localStorage). Очистка данных браузера удалит их.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Button variant="outline" onClick={() => setConfirmReset(true)}>
-            <RotateCcw className="h-4 w-4" />
-            Восстановить демо-данные
-          </Button>
-        </CardContent>
-      </Card>
-
-      <ConfirmDialog
-        open={confirmReset}
-        onOpenChange={setConfirmReset}
-        title="Восстановить демо-данные?"
-        description="Текущие данные будут заменены демонстрационным набором. Это действие нельзя отменить."
-        confirmText="Восстановить"
-        destructive
-        onConfirm={handleReset}
-      />
     </div>
   );
 }

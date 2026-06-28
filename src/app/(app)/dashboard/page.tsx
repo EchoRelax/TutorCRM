@@ -1,13 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { Users, CalendarDays, Wallet, AlertTriangle, Loader2, Sparkles } from "lucide-react";
+import { Users, CalendarDays, Wallet, Loader2, Sparkles } from "lucide-react";
 import { useData } from "@/context/DataProvider";
 import {
   getActiveStudents,
   getMonthlyIncome,
   getTodayLessons,
-  getTotalDebt,
 } from "@/lib/calc";
 import { format, parseISO } from "date-fns";
 import { ru } from "date-fns/locale";
@@ -25,7 +24,7 @@ export default function DashboardPage() {
   const activeCount = getActiveStudents(students).length;
   const todayCount = getTodayLessons(lessons).length;
   const income = getMonthlyIncome(payments);
-  const debt = getTotalDebt(students, lessons, payments);
+  const totalIncome = payments.reduce((s, p) => s + p.amount, 0);
   const monthLabel = format(new Date(), "MMMM", { locale: ru });
   const hour = new Date().getHours();
   const greeting = hour < 6 ? "Доброй ночи" : hour < 12 ? "Доброе утро" : hour < 18 ? "Добрый день" : "Добрый вечер";
@@ -59,34 +58,33 @@ export default function DashboardPage() {
           tone="success"
         />
         <StatCard
-          label="Общий долг"
-          value={formatCurrency(debt, currency)}
-          icon={AlertTriangle}
-          tone={debt > 0 ? "destructive" : "primary"}
+          label="Общий доход"
+          value={formatCurrency(totalIncome, currency)}
+          icon={Wallet}
+          tone="success"
         />
       </div>
 
-      <Card>
-        <CardHeader className="flex-row items-center justify-between space-y-0">
-          <div>
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <Card className="lg:col-span-2">
+          <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-primary" />
               Быстрые действия
             </CardTitle>
             <CardDescription>Добавьте данные в один клик</CardDescription>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <QuickActions />
-        </CardContent>
-      </Card>
+          </CardHeader>
+          <CardContent>
+            <QuickActions />
+          </CardContent>
+        </Card>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        <div className="lg:row-span-2">
+          <DebtorsBlock />
+        </div>
+
         <div className="lg:col-span-2">
           <TodayLessons />
-        </div>
-        <div>
-          <DebtorsBlock />
         </div>
       </div>
     </div>
