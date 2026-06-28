@@ -33,9 +33,13 @@ export function MobileNav() {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMoreOpen(false);
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
+    const scroller = document.querySelector(".app-content") as HTMLElement | null;
+    const prevOverflow = scroller ? scroller.style.overflow : "";
+    if (scroller) scroller.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
+      if (scroller) scroller.style.overflow = prevOverflow;
     };
   }, [moreOpen]);
 

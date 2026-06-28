@@ -21,7 +21,13 @@ function Dialog({ open, onOpenChange, children }: DialogProps) {
       if (e.key === "Escape") onOpenChange(false);
     };
     document.addEventListener("keydown", onKey);
+
+    // Блокируем скролл страницы: body + основной скролл-контейнер (.app-content)
     document.body.style.overflow = "hidden";
+    const scroller = document.querySelector(".app-content") as HTMLElement | null;
+    const prevOverflow = scroller ? scroller.style.overflow : "";
+    if (scroller) scroller.style.overflow = "hidden";
+
     if (backdropRef.current) {
       animate(backdropRef.current, {
         opacity: [0, 1],
@@ -32,6 +38,7 @@ function Dialog({ open, onOpenChange, children }: DialogProps) {
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
+      if (scroller) scroller.style.overflow = prevOverflow;
     };
   }, [open, onOpenChange]);
 
@@ -42,7 +49,6 @@ function Dialog({ open, onOpenChange, children }: DialogProps) {
         <div
           ref={backdropRef}
           className="dialog-backdrop"
-          style={{ opacity: 0 }}
           onClick={() => onOpenChange(false)}
         />
         {children}
