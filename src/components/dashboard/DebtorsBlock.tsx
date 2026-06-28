@@ -8,7 +8,7 @@ import { useToast } from "@/context/ToastProvider";
 import { getDebtors } from "@/lib/calc";
 import { REMINDER_TEMPLATE } from "@/lib/constants";
 import { copyToClipboard, formatCurrency, initials, pluralize } from "@/lib/utils";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 export function DebtorsBlock() {
@@ -30,7 +30,6 @@ export function DebtorsBlock() {
           <AlertTriangle className="h-5 w-5 text-destructive" />
           Должники
         </CardTitle>
-        <CardDescription>Ученики с неоплаченными занятиями</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 space-y-2">
         {debtors.length === 0 ? (
