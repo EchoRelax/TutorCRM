@@ -47,7 +47,7 @@ export function DatePicker({
     <div ref={ref} className={cn("relative", className)}>
       <button
         type="button"
-        className={cn("menuselect-btn", open && "is-open")}
+        className={cn("menuselect-btn picker-trigger", open && "is-open")}
         disabled={disabled}
         onClick={() => setOpen((o) => !o)}
       >
