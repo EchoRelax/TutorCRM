@@ -19,7 +19,9 @@ async function setSession(userId: string) {
   const store = await cookies();
   store.set(SESSION_COOKIE, token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    // Включай COOKIE_SECURE=true только когда сайт на HTTPS (домен + certbot).
+    // По голому HTTP secure-кука не сохранится — будет «Необходима авторизация».
+    secure: process.env.COOKIE_SECURE === "true",
     sameSite: "lax",
     path: "/",
     maxAge: MAX_AGE,
