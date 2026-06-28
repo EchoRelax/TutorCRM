@@ -73,10 +73,6 @@ export function QuickAddProvider({ children }: { children: React.ReactNode }) {
           defaultLessonId: opts?.defaultLessonId ?? null,
         }),
       openEvent: (opts) => {
-        if (!opts?.event && !isPro) {
-          showUpsell();
-          return;
-        }
         setEvent({ open: true, entity: opts?.event ?? null, defaultDate: opts?.defaultDate });
       },
     }),
