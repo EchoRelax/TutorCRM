@@ -1,7 +1,7 @@
 /* =================================================================
    TutorCRM — Calm design system (pure CSS, no Tailwind)
    Japanese minimalism + Scandinavian calm. Warm, soft, airy.
-   Fonts (Inter + Literata) loaded via <link> in layout.
+   Font — Manrope, loaded via <link> in layout.
    ================================================================= */
 
 /* ---------- Design tokens ---------- */
@@ -44,7 +44,7 @@
   --shadow-hover: 0 6px 20px rgba(44, 44, 44, 0.07);
   --shadow-menu: 0 4px 20px rgba(44, 44, 44, 0.05);
 
-  --font-heading: "Inter", "SF Pro Display", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Manrope", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-display: "Manrope", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-body: "Manrope", ui-sans-serif, system-ui, -apple-system, sans-serif;
 

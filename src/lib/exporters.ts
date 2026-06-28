@@ -83,7 +83,7 @@ export function reportToHTML(r: ReportData): string {
   )}</title>
 <style>
   :root { color-scheme: light; }
-  body { font-family: Inter, -apple-system, Segoe UI, Roboto, sans-serif; background:#F5F5F6; color:#111; margin:0; padding:32px; }
+  body { font-family: Manrope, -apple-system, Segoe UI, Roboto, sans-serif; background:#F5F5F6; color:#111; margin:0; padding:32px; }
   .wrap { max-width:820px; margin:0 auto; }
   h1 { font-size:26px; margin:0 0 4px; }
   .meta { color:#71717A; font-size:13px; margin-bottom:24px; }
