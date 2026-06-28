@@ -22,7 +22,7 @@ export interface AuthUser {
 }
 
 const MAX_AGE = 60 * 60 * 24 * 30;
-const ISSUER = "TutorCRM";
+const ISSUER = "Lumen";
 
 async function getRequestInfo() {
   const h = await headers();

@@ -1,12 +1,12 @@
 services:
   db:
     image: postgres:16-alpine
-    container_name: tutorcrm-db
+    container_name: lumen-db
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: tutorcrm
+      POSTGRES_DB: lumen
     ports:
       - "5432:5432"
     volumes:

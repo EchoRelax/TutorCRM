@@ -1,8 +1,8 @@
 import { SignJWT, jwtVerify } from "jose";
 
-export const SESSION_COOKIE = "tutorcrm_session";
-const ISSUER = "tutorcrm";
-const AUDIENCE = "tutorcrm";
+export const SESSION_COOKIE = "lumen_session";
+const ISSUER = "lumen";
+const AUDIENCE = "lumen";
 const MAX_AGE = 60 * 60 * 24 * 30; // 30 days
 
 function getSecret(): Uint8Array {

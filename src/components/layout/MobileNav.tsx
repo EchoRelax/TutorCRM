@@ -42,7 +42,7 @@ export function MobileBrand() {
   return (
     <Link href="/dashboard" className="flex items-center gap-2">
       <Logo className="h-7 w-7 shrink-0" />
-      <span className="font-display font-bold tracking-tight truncate">TutorCRM</span>
+      <span className="font-display font-bold tracking-tight truncate">Lumen</span>
       <span className="beta-badge">Beta</span>
     </Link>
   );

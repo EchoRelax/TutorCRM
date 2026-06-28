@@ -28,7 +28,7 @@ interface SubscriptionValue {
 }
 
 const SubscriptionContext = React.createContext<SubscriptionValue | null>(null);
-const STORAGE_KEY = "tutorcrm:plan";
+const STORAGE_KEY = "lumen:plan";
 
 export function SubscriptionProvider({ children }: { children: React.ReactNode }) {
   const [plan, setPlanState] = React.useState<Plan>("free");

@@ -62,7 +62,7 @@ export default function LoginPage() {
 
   const demoLogin = async () => {
     try {
-      const email = "demo@tutorcrm.app";
+      const email = "demo@lumen.app";
       const password = "demo123";
       try {
         const res = await login(email, password);

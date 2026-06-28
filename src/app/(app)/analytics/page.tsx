@@ -69,7 +69,7 @@ export default function AnalyticsPage() {
 
   const report: ReportData = React.useMemo(
     () => ({
-      title: "Аналитика TutorCRM",
+      title: "Аналитика Lumen",
       generatedAt: format(new Date(), "d MMMM yyyy, HH:mm", { locale: ru }),
       kpis: [
         { label: "Суммарный доход", value: formatCurrency(totalIncome, currency) },

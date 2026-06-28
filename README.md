@@ -1,4 +1,4 @@
-# TutorCRM
+# Lumen
 
 Простая CRM для частных репетиторов: ученики, занятия, оплаты, долги, домашние задания и заметки — в одном месте.
 
@@ -60,7 +60,7 @@ npm run build
 
 | Переменная     | Назначение                                      | Пример |
 |----------------|-------------------------------------------------|--------|
-| `DATABASE_URL` | Строка подключения к PostgreSQL                 | `postgres://postgres:postgres@localhost:5432/tutorcrm` |
+| `DATABASE_URL` | Строка подключения к PostgreSQL                 | `postgres://postgres:postgres@localhost:5432/lumen` |
 | `AUTH_SECRET`  | Секрет для подписи JWT (генерируйте случайно)   | `openssl rand -base64 32` |
 
 ## Деплой на VPS
@@ -70,10 +70,10 @@ npm run build
 3. Поднять БД: `docker compose up -d` (или внешний managed Postgres), прописать `.env` (`DATABASE_URL`, `AUTH_SECRET`).
 4. Применить схему: `npm run db:push` (или `db:migrate`).
 5. Собрать: `npm run build`.
-6. Запустить: `pm2 start "npm run start" --name crm && pm2 save && pm2 startup`.
+6. Запустить: `pm2 start "npm run start" --name lumen && pm2 save && pm2 startup`.
 7. Nginx — reverse proxy на `127.0.0.1:3000`, HTTPS через `certbot --nginx`.
 
-Обновления: `git pull && npm ci && npm run db:migrate && npm run build && pm2 restart crm`.
+Обновления: `git pull && npm ci && npm run db:migrate && npm run build && pm2 restart lumen`.
 
 ---
 

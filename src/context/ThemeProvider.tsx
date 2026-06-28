@@ -12,7 +12,7 @@ interface ThemeContextValue {
 
 const ThemeContext = React.createContext<ThemeContextValue | null>(null);
 
-const STORAGE_KEY = "tutorcrm:theme";
+const STORAGE_KEY = "lumen:theme";
 
 function flashThemeAnim() {
   const root = document.documentElement;

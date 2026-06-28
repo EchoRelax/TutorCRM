@@ -98,7 +98,7 @@ export function reportToHTML(r: ReportData): string {
   .logo { width:34px; height:34px; border-radius:9px; background:#2563eb; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; }
 </style></head>
 <body><div class="wrap">
-  <div class="brand"><div class="logo">T</div><div><div style="font-weight:700">TutorCRM</div><div class="meta" style="margin:0">Отчёт по аналитике</div></div></div>
+   <div class="brand"><div class="logo">L</div><div><div style="font-weight:700">Lumen</div><div class="meta" style="margin:0">Отчёт по аналитике</div></div></div>
   <h1>${escapeHtml(r.title)}</h1>
   <div class="meta">Сформировано: ${escapeHtml(r.generatedAt)}</div>
   ${sectionTablesHtml(r)}

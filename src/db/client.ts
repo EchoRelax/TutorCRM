@@ -3,7 +3,7 @@ import postgres from "postgres";
 import * as schema from "./schema";
 
 const connectionString =
-  process.env.DATABASE_URL ?? "postgres://postgres:postgres@localhost:5432/tutorcrm";
+  process.env.DATABASE_URL ?? "postgres://postgres:postgres@localhost:5432/lumen";
 
 const queryClient = postgres(connectionString, {
   max: 10,
