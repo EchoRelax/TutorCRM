@@ -2,6 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   serverExternalPackages: ["postgres"],
+  // Type-check и lint выполняем отдельными командами (npm run typecheck / lint),
+  // поэтому внутри next build их пропускаем — это сильно ускоряет сборку на VDS.
+  typescript: { ignoreBuildErrors: true },
+  eslint: { ignoreDuringBuilds: true },
   turbopack: {},
   webpack: (config) => {
     if (config.cache && typeof config.cache === "object") {
