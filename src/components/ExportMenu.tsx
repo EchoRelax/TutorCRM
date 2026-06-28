@@ -1,6 +1,6 @@
 "use client";
 
-import { Download, FileText, FileSpreadsheet, FileJson, Printer, Globe, Lock } from "lucide-react";
+import { Download, FileText, FileSpreadsheet, FileJson, Printer, Globe } from "lucide-react";
 import {
   downloadBlob,
   printReport,
@@ -11,7 +11,6 @@ import {
   slug,
   type ReportData,
 } from "@/lib/exporters";
-import { useSubscription } from "@/context/SubscriptionProvider";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuItem } from "@/components/ui/dropdown";
 
@@ -20,17 +19,6 @@ interface Props {
 }
 
 export function ExportMenu({ report }: Props) {
-  const { isPro, showUpsell } = useSubscription();
-
-  if (!isPro) {
-    return (
-      <Button variant="outline" onClick={showUpsell} title="Доступно на Pro">
-        <Lock className="h-4 w-4" />
-        Экспорт
-      </Button>
-    );
-  }
-
   const base = slug(report.title);
   const items = [
     {

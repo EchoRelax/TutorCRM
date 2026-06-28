@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Crown, Check, Sparkles } from "lucide-react";
+import { Crown, Check } from "lucide-react";
 import { FREE_STUDENT_LIMIT, PRO_FEATURES } from "@/lib/constants";
 import {
   Dialog,
@@ -84,7 +84,7 @@ export function useSubscription(): SubscriptionValue {
 }
 
 function ProUpsellDialog() {
-  const { upsellOpen, hideUpsell, grantPro } = useSubscription();
+  const { upsellOpen, hideUpsell } = useSubscription();
 
   return (
     <Dialog open={upsellOpen} onOpenChange={(o) => !o && hideUpsell()}>
@@ -93,13 +93,14 @@ function ProUpsellDialog() {
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/15">
             <Crown className="h-6 w-6" />
           </div>
-          <h2 className="mt-4 text-xl font-bold text-white">Достигнут лимит бесплатного тарифа</h2>
+          <h2 className="mt-4 text-xl font-bold text-white">Достигнут лимит тарифа Free</h2>
           <p className="mt-1 text-sm text-white/85">
-            На Free можно вести до {FREE_STUDENT_LIMIT} учеников. Перейдите на Pro, чтобы не ограничивать себя.
+            На Free можно вести до {FREE_STUDENT_LIMIT} учеников. Расширенные тарифы Pro и Lifetime будут доступны после завершения бета-тестирования.
           </p>
         </div>
 
         <DialogBody className="space-y-2.5">
+          <p className="text-sm font-medium text-muted-foreground">Что будет в расширенных тарифах:</p>
           {PRO_FEATURES.map((f) => (
             <div key={f} className="flex items-center gap-2.5 text-sm">
               <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-success/15 text-success">
@@ -111,12 +112,8 @@ function ProUpsellDialog() {
         </DialogBody>
 
         <DialogFooter>
-          <Button variant="outline" onClick={hideUpsell}>
-            Может быть позже
-          </Button>
-          <Button onClick={grantPro} className="bg-primary text-primary-foreground hover:bg-primary/90">
-            <Sparkles className="h-4 w-4" />
-            Перейти на Pro
+          <Button onClick={hideUpsell} className="w-full">
+            Понятно
           </Button>
         </DialogFooter>
       </DialogContent>

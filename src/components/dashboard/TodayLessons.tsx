@@ -31,11 +31,9 @@ export function TodayLessons() {
 
   return (
     <Card className="flex h-full flex-col">
-      <CardHeader className="flex-row items-center justify-between space-y-0">
-        <div>
-          <CardTitle>Сегодня</CardTitle>
-          <CardDescription>{today.length > 0 ? `Занятий сегодня: ${today.length}` : "Занятий нет"}</CardDescription>
-        </div>
+      <CardHeader>
+        <CardTitle>Сегодня</CardTitle>
+        <CardDescription>{today.length > 0 ? `Занятий сегодня: ${today.length}` : "Занятий нет"}</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 space-y-2">
         {today.length === 0 ? (

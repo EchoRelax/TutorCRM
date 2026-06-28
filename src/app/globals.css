@@ -668,6 +668,8 @@ h4 {
   inset: 0;
   z-index: 70;
   background: rgba(44, 44, 44, 0.5);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -784,14 +786,14 @@ h4 {
 /* ---------- Dialog / overlay ---------- */
 .overlay { position: fixed; inset: 0; z-index: 60; display: flex; align-items: flex-end; justify-content: center; overflow-y: auto; }
 @media (min-width: 640px) { .overlay { align-items: flex-start; padding: 6vh 16px; } }
-.dialog-backdrop { position: absolute; inset: 0; background: rgba(44, 44, 44, 0.5); }
+.dialog-backdrop { position: absolute; inset: 0; background: rgba(44, 44, 44, 0.5); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
 .dialog { position: relative; z-index: 50; display: flex; flex-direction: column; width: 100%; max-width: 540px; max-height: 92vh; overflow: hidden; background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-card); box-shadow: var(--shadow-menu); }
 .dialog--sm { max-width: 440px; }
 .dialog-pad { padding: 24px 28px; }
 .dialog-header { display: flex; flex-direction: column; gap: 4px; padding: 24px 28px; padding-right: 56px; border-bottom: 1px solid var(--hairline); }
 .dialog-title { font-family: var(--font-heading); font-size: 18px; font-weight: 500; color: var(--ink); }
 .dialog-description { font-size: 14px; color: var(--ink-2); }
-.dialog-body { flex: 1 1 auto; padding: 24px 28px; overflow-y: auto; }
+.dialog-body { flex: 1 1 auto; min-height: 0; padding: 24px 28px; overflow-y: auto; }
 .dialog-footer { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; padding: 20px 28px; border-top: 1px solid var(--hairline); }
 .dialog-close { position: absolute; top: 18px; right: 18px; z-index: 2; }
 .icon-btn { width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--hairline); border-radius: var(--r-sm); background: var(--surface); color: var(--ink-2); cursor: pointer; transition: background-color 0.25s ease, color 0.25s ease; }
