@@ -7,6 +7,7 @@ import { useAuth } from "@/context/AuthProvider";
 import { Sidebar } from "./Sidebar";
 import { Topbar } from "./Topbar";
 import { MobileNav } from "./MobileNav";
+import { WhatsNew } from "@/components/WhatsNew";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -37,6 +38,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </main>
         </div>
         <MobileNav />
+        <WhatsNew />
       </div>
     </div>
   );
