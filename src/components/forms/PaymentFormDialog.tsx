@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { MenuSelect } from "@/components/ui/menu-select";
+import { DatePicker } from "@/components/ui/date-picker";
 import { Field } from "@/components/ui/field";
 
 interface Props {
@@ -115,7 +116,11 @@ export function PaymentFormDialog({ open, onOpenChange, payment, defaultStudentI
                 <Input type="number" min={0} step="any" placeholder="2000" {...register("amount")} />
               </Field>
               <Field label="Дата оплаты" required error={errors.payment_date?.message}>
-                <Input type="date" {...register("payment_date")} />
+                <Controller
+                  control={control}
+                  name="payment_date"
+                  render={({ field }) => <DatePicker value={field.value ?? ""} onChange={field.onChange} />}
+                />
               </Field>
             </div>
 

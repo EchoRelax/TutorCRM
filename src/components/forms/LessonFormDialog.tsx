@@ -23,6 +23,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { MenuSelect } from "@/components/ui/menu-select";
+import { DatePicker } from "@/components/ui/date-picker";
+import { TimePicker } from "@/components/ui/time-picker";
 import { Field } from "@/components/ui/field";
 
 interface Props {
@@ -134,10 +136,18 @@ export function LessonFormDialog({ open, onOpenChange, lesson, defaultStudentId 
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <Field label="Дата" required error={errors.date?.message}>
-                <Input type="date" {...register("date")} />
+                <Controller
+                  control={control}
+                  name="date"
+                  render={({ field }) => <DatePicker value={field.value ?? ""} onChange={field.onChange} />}
+                />
               </Field>
               <Field label="Время начала" required error={errors.start_time?.message}>
-                <Input type="time" {...register("start_time")} />
+                <Controller
+                  control={control}
+                  name="start_time"
+                  render={({ field }) => <TimePicker value={field.value ?? ""} onChange={field.onChange} />}
+                />
               </Field>
             </div>
 

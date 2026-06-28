@@ -1138,6 +1138,47 @@ h4 {
 .cal-seg-btn:hover { color: var(--ink); }
 .cal-seg-btn.is-active { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(44, 44, 44, 0.06); }
 
+/* ---------- react-day-picker (themed to calm palette) ---------- */
+.rdp-popover {
+  --rdp-accent-color: var(--caramel);
+  --rdp-accent-background-color: var(--caramel);
+  --rdp-day-width: 38px;
+  --rdp-day-height: 38px;
+  --rdp-day_button-border-radius: var(--r-sm);
+  --rdp-day_button-border: 0;
+  --rdp-day_button-height: 34px;
+  --rdp-day_button-width: 34px;
+  --rdp-selected-border: 0;
+  --rdp-today-color: var(--caramel);
+  --rdp-outside-opacity: 0.45;
+  --rdp-weekday-opacity: 0.6;
+  --rdp-disabled-opacity: 0.4;
+  --rdp-caption-font-size: 15px;
+  --rdp-caption-font-weight: 600;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 50;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-menu);
+  padding: 14px;
+  font-family: var(--font-body);
+  transform-origin: top left;
+}
+.rdp-popover .rdp-caption_label { font-family: var(--font-display); color: var(--ink); }
+.rdp-popover .rdp-weekday { font-family: var(--font-display); font-size: 12px; color: var(--ink-2); }
+.rdp-popover .rdp-day_button { font-family: var(--font-display); color: var(--ink); }
+.rdp-popover .rdp-day_button:hover { background: var(--surface-alt); }
+.rdp-popover .rdp-selected .rdp-day_button { background: var(--caramel); color: #fff; }
+.rdp-popover .rdp-today .rdp-day_button { font-weight: 600; }
+.rdp-popover .rdp-button_previous,
+.rdp-popover .rdp-button_next { color: var(--ink-2); border-radius: var(--r-sm); }
+.rdp-popover .rdp-button_previous:hover,
+.rdp-popover .rdp-button_next:hover { background: var(--surface-alt); color: var(--ink); }
+.time-picker-list { max-height: 240px; }
+
 /* ---------- Theme toggle icon (sun/moon crossfade) ---------- */
 .theme-ico { position: relative; display: inline-flex; width: 16px; height: 16px; align-items: center; justify-content: center; }
 .theme-ico > svg { position: absolute; width: 16px; height: 16px; transition: opacity 0.3s ease, transform 0.3s ease; }

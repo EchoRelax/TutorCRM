@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { MenuSelect } from "@/components/ui/menu-select";
+import { DatePicker } from "@/components/ui/date-picker";
 import { Field } from "@/components/ui/field";
 
 interface Props {
@@ -135,10 +136,18 @@ export function HomeworkFormDialog({
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <Field label="Дата выдачи" required error={errors.assigned_date?.message}>
-                <Input type="date" {...register("assigned_date")} />
+                <Controller
+                  control={control}
+                  name="assigned_date"
+                  render={({ field }) => <DatePicker value={field.value ?? ""} onChange={field.onChange} />}
+                />
               </Field>
               <Field label="Дедлайн" required error={errors.due_date?.message}>
-                <Input type="date" {...register("due_date")} />
+                <Controller
+                  control={control}
+                  name="due_date"
+                  render={({ field }) => <DatePicker value={field.value ?? ""} onChange={field.onChange} />}
+                />
               </Field>
             </div>
 

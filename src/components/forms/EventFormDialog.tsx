@@ -23,6 +23,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { MenuSelect } from "@/components/ui/menu-select";
+import { DatePicker } from "@/components/ui/date-picker";
+import { TimePicker } from "@/components/ui/time-picker";
 import { Field } from "@/components/ui/field";
 
 interface Props {
@@ -101,13 +103,25 @@ export function EventFormDialog({ open, onOpenChange, event, defaultDate }: Prop
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               <Field label="Дата" required error={errors.date?.message}>
-                <Input type="date" {...register("date")} />
+                <Controller
+                  control={control}
+                  name="date"
+                  render={({ field }) => <DatePicker value={field.value ?? ""} onChange={field.onChange} />}
+                />
               </Field>
               <Field label="С" required error={errors.start_time?.message}>
-                <Input type="time" {...register("start_time")} />
+                <Controller
+                  control={control}
+                  name="start_time"
+                  render={({ field }) => <TimePicker value={field.value ?? ""} onChange={field.onChange} />}
+                />
               </Field>
               <Field label="До" error={errors.end_time?.message}>
-                <Input type="time" {...register("end_time")} />
+                <Controller
+                  control={control}
+                  name="end_time"
+                  render={({ field }) => <TimePicker value={field.value ?? ""} onChange={field.onChange} />}
+                />
               </Field>
             </div>
 
