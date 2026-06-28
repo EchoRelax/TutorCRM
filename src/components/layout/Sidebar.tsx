@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LogOut, Crown } from "lucide-react";
 import { cn, initials } from "@/lib/utils";
-import { NAV_ITEMS, SETTINGS_NAV } from "./nav";
+import { NAV_ITEMS, SETTINGS_NAV, WHATS_NEW_NAV } from "./nav";
 import { useAuth } from "@/context/AuthProvider";
 import { useSubscription } from "@/context/SubscriptionProvider";
 import { Button } from "@/components/ui/button";
@@ -50,6 +50,17 @@ export function Sidebar() {
         >
           <SETTINGS_NAV.icon />
           {SETTINGS_NAV.label}
+        </Link>
+
+        <Link
+          href={WHATS_NEW_NAV.href}
+          className={cn(
+            "nav-link",
+            pathname.startsWith(WHATS_NEW_NAV.href) && "is-active"
+          )}
+        >
+          <WHATS_NEW_NAV.icon />
+          {WHATS_NEW_NAV.label}
         </Link>
       </nav>
 

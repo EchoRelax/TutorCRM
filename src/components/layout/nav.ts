@@ -10,6 +10,7 @@ import {
   BarChart3,
   CalendarRange,
   Settings,
+  Sparkles,
   Crown,
   type LucideIcon,
 } from "lucide-react";
@@ -32,6 +33,8 @@ export const NAV_ITEMS: NavItem[] = [
 ];
 
 export const SETTINGS_NAV: NavItem = { href: "/settings", label: "Настройки", icon: Settings };
+
+export const WHATS_NEW_NAV: NavItem = { href: "/whats-new", label: "Что нового?", icon: Sparkles };
 
 export const SUBSCRIPTION_NAV: NavItem = { href: "/subscription", label: "Подписка", icon: Crown };
 
