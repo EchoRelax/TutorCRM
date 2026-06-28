@@ -30,9 +30,7 @@ export function DebtorsBlock() {
           <AlertTriangle className="h-5 w-5 text-destructive" />
           Должники
         </CardTitle>
-        <CardDescription>
-          {debtors.length > 0 ? "Ученики с неоплаченными занятиями" : "Никто не должен"}
-        </CardDescription>
+        <CardDescription>Ученики с неоплаченными занятиями</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 space-y-2">
         {debtors.length === 0 ? (

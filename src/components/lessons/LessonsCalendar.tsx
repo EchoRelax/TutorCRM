@@ -33,7 +33,7 @@ interface Props {
 
 type View = "month" | "week" | "day";
 
-const WEEKDAYS = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
+const WEEKDAYS = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"];
 
 const DOT_COLOR: Record<LessonStatus, string> = {
   scheduled: "bg-primary",
@@ -343,7 +343,7 @@ function WeekView({
               onClick={() => onDayClick(day)}
               className="mb-1.5 flex w-full items-center justify-between rounded-md px-1 hover:text-primary"
             >
-              <span className="text-[11px] uppercase text-muted-foreground">{format(day, "EE", { locale: ru })}</span>
+              <span className="text-[11px] uppercase text-muted-foreground">{WEEKDAYS[(day.getDay() + 6) % 7]}</span>
               <span
                 className={cn(
                   "inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-semibold",
