@@ -634,7 +634,7 @@ h4 {
   border-bottom: 1px solid var(--hairline);
   background: var(--bg);
 }
-@media (min-width: 1024px) { .topbar { padding: 0 36px; } }
+@media (min-width: 1024px) { .topbar { padding: 0 24px; } }
 
 /* ---------- Mobile bottom nav ---------- */
 .mobile-nav { position: fixed; inset: auto 0 0 0; z-index: 40; display: flex; border-top: 1px solid var(--hairline); background: var(--surface); }
@@ -666,7 +666,7 @@ h4 {
   position: fixed;
   inset: 0;
   z-index: 70;
-  background: rgba(44, 44, 44, 0.4);
+  background: rgba(44, 44, 44, 0.5);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -783,7 +783,7 @@ h4 {
 /* ---------- Dialog / overlay ---------- */
 .overlay { position: fixed; inset: 0; z-index: 60; display: flex; align-items: flex-end; justify-content: center; overflow-y: auto; }
 @media (min-width: 640px) { .overlay { align-items: flex-start; padding: 6vh 16px; } }
-.dialog-backdrop { position: absolute; inset: 0; background: rgba(44, 44, 44, 0.32); backdrop-filter: blur(0); }
+.dialog-backdrop { position: absolute; inset: 0; background: rgba(44, 44, 44, 0.5); }
 .dialog { position: relative; z-index: 50; display: flex; flex-direction: column; width: 100%; max-width: 540px; max-height: 92vh; overflow: hidden; background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-card); box-shadow: var(--shadow-menu); }
 .dialog--sm { max-width: 440px; }
 .dialog-pad { padding: 24px 28px; }
@@ -1148,5 +1148,56 @@ h4 {
 .theme-anim *::after {
   transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease,
     fill 0.3s ease, stroke 0.3s ease !important;
+}
+
+/* ===================================================================
+   Utility overrides — re-declared LAST so padding utilities win over
+   component classes (.card-content / .input etc.). Fixes card/input
+   padding conflicts.
+   =================================================================== */
+.p-0 { padding: 0; } .p-1 { padding: 4px; } .p-1\.5 { padding: 6px; } .p-2 { padding: 8px; }
+.p-2\.5 { padding: 10px; } .p-3 { padding: 12px; } .p-4 { padding: 16px; } .p-5 { padding: 20px; }
+.p-6 { padding: 24px; } .p-8 { padding: 32px; }
+.px-1 { padding-left: 4px; padding-right: 4px; }
+.px-2 { padding-left: 8px; padding-right: 8px; }
+.px-3 { padding-left: 12px; padding-right: 12px; }
+.px-4 { padding-left: 16px; padding-right: 16px; }
+.px-5 { padding-left: 20px; padding-right: 20px; }
+.px-6 { padding-left: 24px; padding-right: 24px; }
+.py-0\.5 { padding-top: 2px; padding-bottom: 2px; }
+.py-1 { padding-top: 4px; padding-bottom: 4px; }
+.py-1\.5 { padding-top: 6px; padding-bottom: 6px; }
+.py-2 { padding-top: 8px; padding-bottom: 8px; }
+.py-2\.5 { padding-top: 10px; padding-bottom: 10px; }
+.py-3 { padding-top: 12px; padding-bottom: 12px; }
+.py-4 { padding-top: 16px; padding-bottom: 16px; }
+.py-6 { padding-top: 24px; padding-bottom: 24px; }
+.py-8 { padding-top: 32px; padding-bottom: 32px; }
+.py-10 { padding-top: 40px; padding-bottom: 40px; }
+.py-20 { padding-top: 80px; padding-bottom: 80px; }
+.pt-0 { padding-top: 0; } .pt-2 { padding-top: 8px; } .pt-3 { padding-top: 12px; }
+.pt-4 { padding-top: 16px; } .pt-5 { padding-top: 20px; } .pt-6 { padding-top: 24px; }
+.pb-0 { padding-bottom: 0; } .pb-1 { padding-bottom: 4px; } .pb-2 { padding-bottom: 8px; } .pb-4 { padding-bottom: 16px; }
+.pl-2 { padding-left: 8px; } .pl-3 { padding-left: 12px; } .pl-9 { padding-left: 38px; }
+.pr-2 { padding-right: 8px; } .pr-3 { padding-right: 12px; } .pr-9 { padding-right: 38px; } .pr-10 { padding-right: 40px; }
+
+/* ===================================================================
+   Mobile — tighter sizing so buttons/nav text don't overflow.
+   =================================================================== */
+@media (max-width: 480px) {
+  body { font-size: 14px; }
+  .btn { height: 36px; padding: 7px 14px; font-size: 13px; gap: 6px; min-width: 0; }
+  .btn--sm { height: 32px; padding: 5px 10px; font-size: 12px; }
+  .btn--lg { height: 42px; padding: 9px 18px; font-size: 14px; }
+  .btn--icon { width: 36px; height: 36px; }
+  .btn--icon-sm { width: 30px; height: 30px; }
+  .btn > svg { width: 15px; height: 15px; }
+  .mnav-item { font-size: 10px; padding: 8px 2px; gap: 3px; }
+  .mnav-item > svg { width: 18px; height: 18px; }
+  .page-title { font-size: 21px; }
+  .greeting-title { font-size: 19px; }
+  .num-big { font-size: 26px; }
+  .stat-value { font-size: 24px; }
+  .chip { padding: 6px 11px; font-size: 12px; }
 }
 
