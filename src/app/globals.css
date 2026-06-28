@@ -784,8 +784,8 @@ h4 {
 .chip.is-active { background: var(--caramel); color: #fff; border-color: var(--caramel); }
 
 /* ---------- Dialog / overlay ---------- */
-.overlay { position: fixed; inset: 0; z-index: 60; display: flex; align-items: flex-end; justify-content: center; overflow-y: auto; }
-@media (min-width: 640px) { .overlay { align-items: flex-start; padding: 6vh 16px; } }
+.overlay { position: fixed; inset: 0; z-index: 60; display: flex; align-items: flex-end; justify-content: center; overflow: hidden; }
+@media (min-width: 640px) { .overlay { align-items: center; padding: 24px; } }
 .dialog-backdrop { position: absolute; inset: 0; background: rgba(44, 44, 44, 0.5); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
 .dialog { position: relative; z-index: 50; display: flex; flex-direction: column; width: 100%; max-width: 540px; max-height: 92vh; overflow: hidden; background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-card); box-shadow: var(--shadow-menu); }
 .dialog--sm { max-width: 440px; }
