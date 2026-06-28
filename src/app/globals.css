@@ -640,16 +640,18 @@ h4 {
 /* ---------- Mobile bottom nav ---------- */
 .mobile-nav { position: fixed; inset: auto 0 0 0; z-index: 40; display: flex; border-top: 1px solid var(--hairline); background: var(--surface); }
 @media (min-width: 1024px) { .mobile-nav { display: none; } }
-.mobile-nav-inner { display: flex; align-items: stretch; justify-content: space-between; margin: 0 auto; max-width: 480px; width: 100%; overflow-x: auto; }
+.mobile-nav-inner { display: flex; align-items: stretch; gap: 2px; margin: 0 auto; width: 100%; overflow-x: auto; padding: 0 4px; }
 .mobile-nav-inner.no-scrollbar { scrollbar-width: none; }
 .mobile-nav-inner.no-scrollbar::-webkit-scrollbar { display: none; }
 .mnav-item {
   display: flex;
-  flex: 1 1 0;
+  flex-shrink: 0;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  padding: 10px 4px;
+  justify-content: center;
+  gap: 3px;
+  min-width: 56px;
+  padding: 8px 6px;
   background: transparent;
   border: 0;
   cursor: pointer;
@@ -658,83 +660,11 @@ h4 {
   font-weight: 400;
   color: var(--ink-2);
   transition: color 0.25s ease;
+  text-decoration: none;
 }
 .mnav-item > svg { width: 20px; height: 20px; stroke-width: 1.5; }
 .mnav-item.is-active { color: var(--caramel); }
-
-/* ---------- Mobile "More" bottom sheet ---------- */
-.mnav-sheet-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 70;
-  background: rgba(44, 44, 44, 0.5);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  animation: mnav-fade 0.2s ease-out;
-}
-.mnav-sheet {
-  width: 100%;
-  max-width: 480px;
-  background: var(--surface);
-  border: 1px solid var(--hairline);
-  border-bottom: 0;
-  border-radius: 20px 20px 0 0;
-  box-shadow: var(--shadow-menu);
-  padding: 8px 8px 20px;
-  max-height: 74vh;
-  overflow-y: auto;
-  animation: mnav-sheet-up 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-@keyframes mnav-sheet-up {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
-}
-@keyframes mnav-fade {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-.mnav-sheet-handle {
-  width: 40px;
-  height: 4px;
-  border-radius: 2px;
-  background: var(--beige);
-  margin: 6px auto 8px;
-}
-.mnav-sheet-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 6px 10px 12px;
-}
-.mnav-sheet-title {
-  font-family: var(--font-heading);
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--ink);
-}
-.mnav-sheet-list {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.mnav-sheet-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 13px 12px;
-  border-radius: var(--r-sm);
-  font-family: var(--font-display);
-  font-size: 15px;
-  color: var(--ink);
-  transition: background-color 0.2s ease;
-}
-.mnav-sheet-item:hover { background: var(--surface-alt); }
-.mnav-sheet-item > svg { width: 20px; height: 20px; color: var(--ink-2); }
-.mnav-sheet-item.is-active { color: var(--caramel); }
-.mnav-sheet-item.is-active > svg { color: var(--caramel); }
+.mnav-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 68px; }
 
 /* ---------- Page header / greeting ---------- */
 .page-header { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
@@ -1289,12 +1219,19 @@ h4 {
   .btn--icon { width: 36px; height: 36px; }
   .btn--icon-sm { width: 30px; height: 30px; }
   .btn > svg { width: 15px; height: 15px; }
-  .mnav-item { font-size: 10px; padding: 8px 2px; gap: 3px; }
+  .mnav-item { font-size: 10px; padding: 6px 4px; gap: 2px; min-width: 48px; }
   .mnav-item > svg { width: 18px; height: 18px; }
+  .mnav-label { max-width: 56px; }
   .page-title { font-size: 21px; }
   .greeting-title { font-size: 19px; }
   .num-big { font-size: 26px; }
-  .stat-value { font-size: 24px; }
+  .stat-value { font-size: 20px; }
+  .stat-label { font-size: 11px; }
+  .stat-icon { width: 36px; height: 36px; }
+  .stat-icon > svg { width: 20px; height: 20px; }
+  .greeting { margin-bottom: 8px; }
+  .greeting-title { font-size: 17px; }
+  .greeting-date { font-size: 11px; }
   .chip { padding: 6px 11px; font-size: 12px; }
 }
 

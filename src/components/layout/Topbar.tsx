@@ -7,7 +7,7 @@ import { GlobalSearch } from "./GlobalSearch";
 export function Topbar() {
   return (
     <header className="topbar">
-      <div className="mobile-only">
+      <div className="mobile-only min-w-0">
         <MobileBrand />
       </div>
 
@@ -15,7 +15,7 @@ export function Topbar() {
         <GlobalSearch />
       </div>
 
-      <div className="ml-auto mobile-only">
+      <div className="ml-auto shrink-0 mobile-only">
         <ThemeToggle />
       </div>
     </header>
