@@ -794,6 +794,7 @@ h4 {
 .dialog-title { font-family: var(--font-heading); font-size: 18px; font-weight: 500; color: var(--ink); }
 .dialog-description { font-size: 14px; color: var(--ink-2); }
 .dialog-body { flex: 1 1 auto; min-height: 0; padding: 24px 28px; overflow-y: auto; }
+.dialog form { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; }
 .dialog-footer { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; padding: 20px 28px; border-top: 1px solid var(--hairline); }
 .dialog-close { position: absolute; top: 18px; right: 18px; z-index: 2; }
 .icon-btn { width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--hairline); border-radius: var(--r-sm); background: var(--surface); color: var(--ink-2); cursor: pointer; transition: background-color 0.25s ease, color 0.25s ease; }
